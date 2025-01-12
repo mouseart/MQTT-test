@@ -1,6 +1,6 @@
 # Face Detection and Image Display System
 
-**[English]** | **[中文简体](README_CN.md)**
+**[English]** | **[中文简体](README-CN.md)**
 
 ## Project Introduction
 
@@ -32,8 +32,8 @@ This project is a face detection and image display system based on Flask and MQT
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/face-detection-system.git
-   cd face-detection-system
+   git clone https://github.com/mouseart/MQTT-test.git
+   cd MQTT-test
    ```
 
 2. **Install Dependencies**

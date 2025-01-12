@@ -1,6 +1,6 @@
 # 人脸检测与图片展示系统
 
-**[English](README.md)** | **[中文简体]()**
+**[English](README.md)** | **[中文简体]**
 
 ## 项目简介
 
@@ -32,8 +32,8 @@
 1. **克隆仓库**
 
    ```bash
-   git clone https://github.com/yourusername/face-detection-system.git
-   cd face-detection-system
+   git clone https://github.com/mouseart/MQTT-test.git
+   cd MQTT-test
    ```
 2. **安装依赖**
 
