@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Detection</title>
+</head>
+<body>
+    <h1>Face Detection Status</h1>
+    <div id="status">当前状态: 无人脸 / Current Status: No Face</div>
+    <div id="image-container">
+        <img id="face-image" src="" alt="Detected Face" style="display:none;">
+    </div>
+
+    <script>
+        function updateStatus() {
+            fetch('/status')
+                .then(response => response.json())
+                .then(data => {
+                    const statusDiv = document.getElementById('status');
+                    const imageElement = document.getElementById('face-image');
+                    if (data.status === 'face_detected') {
+                        statusDiv.textContent = '当前状态: 检测到人脸 / Current Status: Face Detected';
+                        if (data.image) {
+                            imageElement.src = `/static/${data.image}`;
+                            imageElement.style.display = 'block';
+                        }
+                    } else {
+                        statusDiv.textContent = '当前状态: 无人脸 / Current Status: No Face';
+                        imageElement.style.display = 'none';
+                    }
+                });
+        }
+
+        setInterval(updateStatus, 1000);  // 每秒更新一次状态
+    </script>
+</body>
+</html>
