@@ -56,6 +56,56 @@ This project is a face detection and image display system based on Flask and MQT
 
 - **Static Images**: Place the images you want to display in the `static` directory. Supported formats include `.png`, `.jpg`, `.jpeg`, and `.gif`.
 
+## Configuring the MQTT Broker
+
+By default, the project uses the public MQTT broker `broker.emqx.io`. If you need to use your own MQTT broker, follow these steps:
+
+### 1. Modify the MQTT Configuration in `app.py`
+
+In the `app.py` file, locate the following code segment:
+
+```python
+def start_mqtt_client():
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_message = on_message
+    client.connect("broker.emqx.io", 1883, 60)  # Default public MQTT broker
+    client.loop_start()
+```
+
+Replace `"broker.emqx.io"` with your own MQTT broker address. For example, if your MQTT broker address is `mqtt.example.com` and the port is `1883`, modify it as follows:
+
+```python
+client.connect("mqtt.example.com", 1883, 60)
+```
+
+### 2. Configure the MQTT Topic
+
+By default, the project subscribes to the topic `sscma/v0/seeed-leon/tx`. If you need to change the subscription topic, locate the following code segment in the `app.py` file:
+
+```python
+def on_connect(client, userdata, flags, rc):
+    if rc == 0:
+        print("Successfully connected to MQTT broker")
+        client.subscribe("sscma/v0/seeed-leon/tx")  # Subscribe to the topic
+    else:
+        print(f"Connection failed, return code: {rc}")
+```
+
+Replace `"sscma/v0/seeed-leon/tx"` with your own MQTT topic.
+
+### 3. Run the Project
+
+After completing the configuration, restart the project:
+
+```bash
+python app.py
+```
+
+### 4. Verify the Connection
+
+Ensure that your MQTT broker is running and that the client can successfully connect to the server. You can check the connection status in the logs of `app.py`.
+
 ## Contribution Guidelines
 
 Contributions are welcome! Please follow these steps:

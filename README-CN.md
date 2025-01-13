@@ -35,16 +35,19 @@
    git clone https://github.com/mouseart/MQTT-test.git
    cd MQTT-test
    ```
+
 2. **安装依赖**
 
    ```bash
    pip install -r requirements.txt
    ```
+
 3. **运行项目**
 
    ```bash
    python app.py
    ```
+
 4. **访问应用**
 
    打开浏览器，访问 `http://localhost:5001`，即可看到系统状态和图片展示。
@@ -52,6 +55,56 @@
 ### 配置文件
 
 - **静态图片**: 将需要展示的图片放入 `static` 目录下，支持 `.png`, `.jpg`, `.jpeg`, `.gif` 格式。
+
+## 配置 MQTT 代理服务器
+
+默认情况下，项目使用公共的 MQTT 代理服务器 `broker.emqx.io`。如果你需要使用自己的 MQTT 代理服务器，可以按照以下步骤进行配置：
+
+### 1. 修改 `app.py` 文件中的 MQTT 配置
+
+在 `app.py` 文件中，找到以下代码段：
+
+```python
+def start_mqtt_client():
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_message = on_message
+    client.connect("broker.emqx.io", 1883, 60)  # 默认使用公共 MQTT 代理
+    client.loop_start()
+```
+
+将 `client.connect("broker.emqx.io", 1883, 60)` 中的 `"broker.emqx.io"` 替换为你自己的 MQTT 代理服务器地址。例如，如果你的 MQTT 代理服务器地址是 `mqtt.example.com`，端口是 `1883`，则修改为：
+
+```python
+client.connect("mqtt.example.com", 1883, 60)
+```
+
+### 2. 配置 MQTT 主题
+
+默认情况下，项目订阅的主题是 `sscma/v0/seeed-leon/tx`。如果你需要更改订阅的主题，可以在 `app.py` 文件中找到以下代码段：
+
+```python
+def on_connect(client, userdata, flags, rc):
+    if rc == 0:
+        print("成功连接到MQTT代理 / Successfully connected to MQTT broker")
+        client.subscribe("sscma/v0/seeed-leon/tx")  # 订阅主题 / Subscribe to the topic
+    else:
+        print(f"连接失败，返回码: {rc} / Connection failed, return code: {rc}")
+```
+
+将 `client.subscribe("sscma/v0/seeed-leon/tx")` 中的 `"sscma/v0/seeed-leon/tx"` 替换为你自己的 MQTT 主题。
+
+### 3. 运行项目
+
+完成配置后，重新运行项目：
+
+```bash
+python app.py
+```
+
+### 4. 验证连接
+
+确保你的 MQTT 代理服务器正在运行，并且客户端能够成功连接到服务器。你可以在 `app.py` 的日志中查看连接状态。
 
 ## 贡献指南
 
