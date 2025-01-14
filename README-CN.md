@@ -1,4 +1,4 @@
-# 人脸检测与图片展示系统
+# 基于MQTT 的人脸检测与图片展示系统
 
 **[English](README.md)** | **[中文简体]**
 
@@ -35,19 +35,16 @@
    git clone https://github.com/mouseart/MQTT-test.git
    cd MQTT-test
    ```
-
 2. **安装依赖**
 
    ```bash
    pip install -r requirements.txt
    ```
-
 3. **运行项目**
 
    ```bash
    python app.py
    ```
-
 4. **访问应用**
 
    打开浏览器，访问 `http://localhost:5001`，即可看到系统状态和图片展示。

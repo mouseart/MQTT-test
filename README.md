@@ -1,4 +1,4 @@
-# Face Detection and Image Display System
+# MQTT-Based Face Detection and Image Display System
 
 **[English]** | **[中文简体](README-CN.md)**
 
